@@ -1,0 +1,92 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef pair<int, int> ii;
+typedef vector<int> vi;
+typedef vector<ii> vii;
+typedef long long ll;
+const int INF = ~(1<<31);
+const double EPS = 1e-9;
+const double pi = acos(-1);
+typedef vector<vi> vvi;
+typedef vector<vii> vvii;
+
+int min(int a, int b){
+	return a<b ? a : b;
+}
+
+typedef struct tt{
+	int two;
+	int three;
+	tt(): two(0), three(0){}
+	void operator+=( struct tt a ){
+		two += a.two;
+		three += a.three;
+	}
+	void operator=( struct tt a ){
+		two = a.two;
+		three = a.three;
+	}
+} tt;
+
+int max( int a, int b){
+	return a>b ? a : b;
+}
+
+void factorize(int a, int& t2, int& t3)
+{
+	t2 = 0; t3 = 0;
+	while(a%2==0){
+		a/=2;
+		t2++;
+	}
+	while(a%3==0){
+		a/=3;
+		t3++;
+	}
+}
+
+int main(){
+	int T;
+	for(cin>>T; T>0; --T)
+	{
+		int N,M, tmp;
+		cin >> N >> M;
+		int a[N][M][2000];
+		for(int i=0; i<N; ++i) for(int j=0; j<M; ++j) for(int k=0; k<2000; ++k) a[i][j][k]=0;
+		
+		int twos, threes;
+		for(int i=0; i<N; ++i){
+			for(int j=0; j<M; ++j){
+				cin >> tmp;
+				factorize(tmp, twos, threes);
+				if(i==0 && j==0){
+					a[i][j][twos] = threes;
+					continue;
+				}
+				for(int k=twos;k<2000;++k){
+					if(i==0){
+						if(a[i][j-1][k-twos]){
+							a[i][j][k] = a[i][j-1][k-twos]+threes;
+						}
+					}else if(j==0){
+						if(a[i-1][j][k-twos]){
+							a[i][j][k] = a[i-1][j][k-twos]+threes;
+						}
+					}else{
+						tmp = max (a[i-1][j][k-twos], a[i][j-1][k-twos]);
+						a[i][j][k] = tmp;
+					}
+				}
+				
+			}
+		}
+		int m = 0;
+		for(int k=0; k<2000; ++k){
+			m = max( m, min( k, a[N-1][M-1][k] ) );
+		}
+		cout << m << endl;
+	}
+	return 0;
+}

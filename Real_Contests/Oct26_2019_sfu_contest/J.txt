@@ -1,0 +1,51 @@
+
+# J
+
+from collections import deque
+
+
+T = int(input())
+
+def left(s,m):
+	l = []
+	p=0
+	for i,c in enumerate(s):
+		if p: l.append(m[c][p]); p=0
+		else: p=c
+	if p:
+		l.append(p)
+	return l  # don't join
+
+def right(s,m):
+	l = []
+	it = iter(s)
+	d = len(s)%2
+	if d:
+		l.append(next(it))
+	p=0
+	for c in it:
+		if p: l.append(m[c][p]); p=0
+		else: p=c
+	return l
+
+def win(player, c, vowels='aeiou'):
+	# S (0) wins on a vowel
+	return (player==0) == (c[0] in vowels)
+
+def search(s, m, player=0):  # Salah starts
+	# returns player that wins from this node
+	if len(s)==1:
+		return win(player,s)
+	# try left
+	Lval = search(left(s,m), m, 1^player)
+	# if length is even, moves 'left'/'right' have same result
+	# If current player can win with this move, make this move
+	if len(s)%2==0 or win(player, Lval): return player  # current player wins
+	return search(right(s,m), m, 1^player)
+
+for t in range(T):
+	m = {chr(97+x):{chr(97+y):c for y,c in enumerate(input())} for x in range(26)}
+	s = input()
+	print( "Salah" if search(s,m)==0 else "Marzo" )
+
+

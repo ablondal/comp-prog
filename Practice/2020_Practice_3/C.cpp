@@ -5,6 +5,7 @@
 
 using namespace std;
 
+// DFS and all loops is far too slow
 
 int main(){
 	int n;

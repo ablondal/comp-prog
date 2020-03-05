@@ -80,9 +80,9 @@ int main(){
 			Y[t2] = true;
 		}else{
 			if (t1 < t2)
-				req.push_back( make_pair(t1,t2) );
+				req.push_back( {t1,t2} );
 			else
-				req.push_back( make_pair(t2,t1) );
+				req.push_back( {t2,t1} );
 		}
 		if ( (N[t1] && Y[t1]) || (N[t2] && Y[t2]) ){
 			cout << "impossible" << endl;

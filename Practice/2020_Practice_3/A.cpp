@@ -65,13 +65,14 @@ int main(){
 					break;
 			}
 			for(int n=0; n<layer; ++n){
+				x += dx;
+				y += dy;
 				if (y + x >= 0){
 					X[i] = x;
 					Y[i] = y;
 					i++;
 				}
-				x += dx;
-				y += dy;
+				
 			}
 		}
 	}

@@ -7,6 +7,8 @@ using namespace std;
 #define max(a,b) ((a>b)?a:b)
 #define min(a,b) ((a<b)?a:b)
 
+// Done!
+
 bool isSubSeq(string a, string b){
 	// tests if b is a substring of a
 	int ai = 0;

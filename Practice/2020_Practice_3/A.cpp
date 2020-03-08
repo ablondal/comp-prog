@@ -86,7 +86,7 @@ int main(){
 		if (a==0 && b==0){
 			break;
 		}
-		cout << dist(a,b) << endl;
+		printf("%d\r\n", dist(a,b));
 	}
 
 }

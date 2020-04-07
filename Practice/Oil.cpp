@@ -21,21 +21,58 @@ using namespace std;
 #define pi acos(-1.0)
 #define EPS 1e-9
 
+int gcd(int a, int b){
+	if (b==0) return a;
+	return gcd(b, a%b);
+}
+
 struct _pt{
 	int x;
 	int y;
 };
 typedef struct _pt pt;
+typedef long double ld;
 
-double get_ang(pt a, pt b){
-	// Get angle of line from a to b, compared to the line (1,0)
+struct _frac{
+	int t;
+	int b;
+	bool neg = 0;
+};
+typedef struct _frac frac;
+
+bool operator<(frac &a, frac &b){
+	if (a.neg && !b.neg) return true;
+	if (b.neg && !a.neg) return false;
+	if (a.neg){
+		return (a.t*b.b < a.b*b.t);
+	}else{
+		return (a.t*b.b >= a.b*b.t);
+	}
+}
+
+bool operator==(frac &a, frac &b){
+	if (a.t*b.b == a.b*b.t && a.neg == b.neg) return true;
+	return false;
+}
+
+frac get_frac(pt a, pt b){
+	// Get fraction of line from a to b
 	int x = b.x-a.x;
 	int y = b.y-a.y;
-	if (y==0) return 0;
-	if (x==0) return pi/2;
-	double r = atan( (double)y/(double)x );
-	if (r<0) r += pi;
-	return r;
+	frac f;
+	if (x<0 && y!=0) f.neg = !f.neg;
+	if (y<0 && x!=0) f.neg = !f.neg;
+	x = abs(x);
+	y = abs(y);
+	int g = gcd(x,y);
+	if ( g != 0 ){
+		x /= g;
+		y /= g;
+	}
+	f.t = y;
+	f.b = x;
+
+	return f;
 }
 
 int main(){
@@ -56,8 +93,8 @@ int main(){
 			topsoil += val[i];
 		}
 	}
-	vector <double> ang(2*n);
-	vector <double> order(2*n);
+	vector <frac> ang(2*n);
+	vector <int> order(2*n);
 	for(int i=0 ;i < 2*n; ++i){
 		order[i] = i;
 	}
@@ -65,17 +102,14 @@ int main(){
 	vector <bool> I(n,false);
 	for(int i=0; i<2*n; ++i){
 		for(int k=0; k<2*n; ++k){
-			ang[k] = get_ang(pts[i],pts[k]);
+			ang[k] = get_frac(pts[i],pts[k]);
 		}
-		sort( order.begin(), order.end(), [&ang](int a, int b){
-			int d1, d2, n1, n2;
-			return pts[a].x;
-		} );
-		// cout << pts[i].x << ", " << pts[i].y << endl;
-		// cout << "sorted:" << endl;
-		// for(int k=0; k<order.size(); ++k){
-		// 	cout << pts[order[k]].x << ", " << pts[order[k]].y << endl;
-		// }
+		sort( order.begin(), order.end(), [&ang](int a, int b){return ang[a]<ang[b];} );
+		cout << pts[i].x << ", " << pts[i].y << endl;
+		cout << "sorted:" << endl;
+		for(int k=0; k<order.size(); ++k){
+			cout << pts[order[k]].x << ", " << pts[order[k]].y << endl;
+		}
 		int curval = val[i/2];
 		I.clear();
 		I.resize(n,false);

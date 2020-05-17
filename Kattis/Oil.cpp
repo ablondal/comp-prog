@@ -21,6 +21,8 @@ using namespace std;
 #define pi acos(-1.0)
 #define EPS 1e-9
 
+// See Oil2 for working solution
+
 int gcd(int a, int b){
 	if (b==0) return a;
 	return gcd(b, a%b);

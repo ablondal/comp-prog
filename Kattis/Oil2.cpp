@@ -9,93 +9,121 @@ Consortium (ICPC) hopes that extensive computer
 simulations will make it easier to determine how to
 drill oil wells in the best possible way.
 */
-#include <iostream>
+#include <cstdio>
 #include <algorithm>
 #include <vector>
 #include <string>
 #include <map>
 #include <cmath>
+#include <numeric>
+#include <utility>
 using namespace std;
+#define forn(i,k) for(int i=0; i<int(k); ++i)
 #define max(a,b) ((a>b)?a:b)
 #define min(a,b) ((a<b)?a:b)
 #define pi acos(-1.0)
 #define EPS 1e-9
+// C++17 needed for numeric, or just make your own gcd, not too hard tbh
+// Done, takes a loooong time to run, but ekes in
+const int N = 2000;
 
-struct _pt{
-    int x;
-    int y;
-};
-typedef struct _pt pt;
+typedef long long ll;
+typedef pair<int, int> pt;
+typedef pair<pt, int> ppt;
+typedef struct _frac{
+    ll n, d;
+} frac;
 
-double get_ang(pt a, pt b){
-    // Get angle of line from a to b, compared to the line (1,0)
-    int x = b.x-a.x;
-    int y = b.y-a.y;
-    if(x==0) return pi/2;
-    if(y==0 && x>0) return 0;
-    if(y==0 && x<0) return pi;
-    double r = atan( (double)y/(double)x );
-    if (r<0) r += pi;
-    return r;
+int n, x, x0, x1, y;
+vector <pt> pts; // x, y
+vector <frac> fracs;
+vector <int> pt_ref;
+ll w[N];
+bool vis[N];
+
+frac m_f(ll n, ll d){
+    ll g = max(1, gcd(n,d));
+    int neg = 1;
+    if(n<0) neg *= -1, n*=-1;
+    if(d<0) neg *= -1, d*=-1;
+    return frac({neg*n/g, d/g});
+}
+
+bool operator<(frac a, frac b){
+    if (a.d==0){
+        return false;
+    }else if (b.d==0){
+        return true;
+    }
+    return a.n*b.d < b.n*a.d;
+}
+
+bool operator==(frac a, frac b){
+    return (a.n==b.n && a.d==b.d);
+}
+
+bool frac_cmp(int a, int b){
+    return fracs[a]<fracs[b];
 }
 
 int main(){
-    int n;
-    cin >> n;
-    vector <pt> pts(2*n);
-    // vector <pt> en(n);
-    vector <int> val(n);
-    int a,b,c;
-    for(int i=0; i<n; ++i){
-        cin >> a >> b >> c;
-        pts[2*i].x = a;
-        pts[2*i+1].x = b;
-        pts[2*i].y = pts[2*i+1].y = c;
-        val[i] = max(a-b,b-a);
+    scanf("%d",&n);
+    pt_ref.resize(2*n);
+    fracs.resize(2*n);
+    forn(i, n){
+        scanf("%d%d%d",&x0,&x1,&y);
+        pts.push_back({x0,y});
+        pts.push_back({x1,y});
+        w[i] = abs(x0-x1);
     }
-    vector <double> ang(2*n);
-    vector <double> order(2*n);
-    for(int i=0 ;i < 2*n; ++i){
-        order[i] = i;
-    }
-    int maxval = val[0];
-    vector <bool> I(n,false);
-    for(int i=0; i<2*n; ++i){
-        for(int j=0; j<2*n; ++j){
-            ang[j] = get_ang(pts[i],pts[j]);
+    forn(i, 2*n) pt_ref[i] = i;
+    forn(i, n) vis[i] = false;
+    // For each endpoint, sort and shuffle
+    ll max=0;
+    ll cw;
+    ll before;
+    ll after;
+    forn(bpt, 2*n){
+        // printf("%d\n",bpt);
+        forn(i, 2*n){
+            // printf("%d\n",i);
+            fracs[i] = m_f(pts[i].first-pts[bpt].first,pts[bpt].second-pts[i].second);
         }
-        sort( order.begin(), order.end(), [&ang](int a, int b){return ang[a]<ang[b];} );
-        int curval = val[i/2];
-        I.clear();
-        I.resize(n,false);
-        I[i/2] = true;
-        for(int j=0; j<2*n; ++j){
-            if (pts[order[j]].y == pts[i].y) continue;
-            b = j+1;
-            while( ang[order[b]]-ang[order[j]] < EPS && b<2*n ) b++;
+        // printf("%d\n",bpt);
+        sort(pt_ref.begin(), pt_ref.end(), frac_cmp);
+        
+        cw = w[bpt/2];
+        max = max(max, cw);
+        // printf("%d\n",bpt);
+        int i=0;
+        while(fracs[pt_ref[i]].d!=0){
+            int j=i;
+            int i_ref, j_ref;
+            
+            i_ref = pt_ref[i]/2;
+            before = 0;
+            after = 0;
 
-            for(a=j;a<b;++a){
-                c = order[a];
-                if (!I[c/2]){
-                    curval += val[c/2];
-                }
-            }
-            maxval = max(maxval, curval);
-            for(a=j;a<b;++a){
-                c = order[a];
-                if (I[c/2]){
-                    curval -= val[c/2];
-                    I[c/2] = false;
+            while(fracs[pt_ref[j]]==fracs[pt_ref[i]]){
+                j_ref = pt_ref[j]/2;
+                if(vis[j_ref]){
+                    after -= w[j_ref];
+                    vis[j_ref] = false;
                 }else{
-                    I[c/2] = true;
+                    before += w[j_ref];
+                    vis[j_ref] = true;
                 }
+                ++j;
             }
-            j = b-1;
+            i=j;
+            cw += before;
+            max = max(cw, max);
+            cw += after;
         }
+        // printf("%d\n",bpt);
     }
-    cout << maxval << endl;
+    printf("%lli\n",max);
 }
-
 
 
 

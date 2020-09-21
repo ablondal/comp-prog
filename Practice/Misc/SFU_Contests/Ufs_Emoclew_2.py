@@ -1,0 +1,1 @@
+print('\n'.join([' '.join([word[::-1] for word in input().split()]) for x in range(int(input()))]))

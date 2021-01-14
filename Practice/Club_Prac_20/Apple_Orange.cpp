@@ -16,9 +16,22 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 
 int main() {
-	int t;
-	scanf("%d", &t);
-	while(t--){
-		;
+	int s, t, a, b, m, n;
+	scanf("%d%d%d%d%d%d", &s, &t, &a, &b, &m, &n);
+	int A, B=0;
+	rep(i,0,m){
+		scanf("%d", &A);
+		if (a+A <= t && s <= a+A){
+			B++;
+		}
 	}
+	printf("%d\n", B);
+	B = 0;
+	rep(i,0,n){
+		scanf("%d", &A);
+		if (b+A <= t && s <= b+A){
+			B++;
+		}
+	}
+	printf("%d\n", B);
 }

@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-// incomplete
+// done
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
@@ -18,7 +18,11 @@ typedef vector<int> vi;
 int main() {
 	int t;
 	scanf("%d", &t);
+	int tot= 0;
 	while(t--){
-		;
+		int a;
+		scanf("%d", &a);
+		tot += abs(a);
 	}
+	printf("%d\n", tot);
 }

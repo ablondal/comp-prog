@@ -4,8 +4,6 @@
 #include <numeric>
 #include <string>
 #include <cstdio>
-#include <iostream>
-#include <string>
 using namespace std;
 // incomplete
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
@@ -16,9 +14,7 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 
 int main() {
-	int t;
-	scanf("%d", &t);
-	while(t--){
-		;
-	}
+	int n, k;
+	scanf("%d%d", &n, &k);
+	printf("%d\n", k * ((n+k)/k) );
 }

@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
+#include <cmath>
 using namespace std;
 // incomplete
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
@@ -18,7 +19,11 @@ typedef vector<int> vi;
 int main() {
 	int t;
 	scanf("%d", &t);
-	while(t--){
-		;
-	}
+	int i=floor(sqrt(t));
+	int j=ceil(sqrt(t));
+	if (i*j >= t)
+		printf("%d\n", i+j);
+	else
+		printf("%d\n", i+j+1);
+
 }

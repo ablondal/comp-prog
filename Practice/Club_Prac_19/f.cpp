@@ -4,8 +4,6 @@
 #include <numeric>
 #include <string>
 #include <cstdio>
-#include <iostream>
-#include <string>
 using namespace std;
 // incomplete
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
@@ -14,6 +12,10 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+
+ll PP(int x, int y){
+	
+}
 
 int main() {
 	int t;

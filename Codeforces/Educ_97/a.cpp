@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-// incomplete
+// done
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
@@ -19,6 +19,12 @@ int main() {
 	int t;
 	scanf("%d", &t);
 	while(t--){
-		;
+		int l, r;
+		scanf("%d%d", &l, &r);
+		if (l*2 > r){
+			printf("YES\n");
+		}else{
+			printf("NO\n");
+		}
 	}
 }

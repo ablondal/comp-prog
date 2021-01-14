@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
+#include <cstring>
 using namespace std;
 // incomplete
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
@@ -16,9 +17,29 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 
 int main() {
+	int n, x, y;
+	scanf("%d%d%d", &n, &x, &y);
+	int b =0;
 	int t;
-	scanf("%d", &t);
-	while(t--){
-		;
+	rep(i,0,n){
+		scanf("%d", &t);
+		if (t<=x){
+			b++;
+		}
+	}
+	if(x>y){
+		printf("%d\n", n);
+	}else if(y>=x){
+		printf("%d\n", (b+1)/2);
 	}
 }
+
+
+
+
+
+
+
+
+
+

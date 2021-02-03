@@ -1,11 +1,4 @@
-#include <vector>
-#include <utility>
-#include <algorithm>
-#include <numeric>
-#include <string>
-#include <cstdio>
-#include <iostream>
-#include <string>
+#include <bits/stdc++.h>
 using namespace std;
 // incomplete
 #define rep(i, a, b) for(int i = a; i < (b); ++i)

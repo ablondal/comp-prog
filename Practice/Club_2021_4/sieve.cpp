@@ -7,7 +7,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-const int N = 1e6;
+const int N = 1e9;
 
 char isprime[N+1] = {0};
 

@@ -11,9 +11,20 @@ typedef vector<int> vi;
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	int n;
+	cin >> n;
+	int last = -1;
+	ll tot = 1;
+	rep(i,0,n){
+		int a;
+		cin >> a;
+		if(a==1){
+			if (last != -1){
+				tot *= (i - last);
+			}
+			last = i;
+		}
 	}
+	if (last == -1) tot = 0;
+	cout << tot << endl;
 }

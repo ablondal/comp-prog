@@ -11,9 +11,14 @@ typedef vector<int> vi;
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
-	}
+	int hh, mm;
+	scanf("%d:%d", &hh, &mm);
+	int mp;
+	scanf("%d", &mp);
+	hh += (mm + mp)/60;
+	hh %= 24;
+	mm += mp;
+	mm %= 60;
+	printf("%02d:%02d\n", hh, mm);
+
 }

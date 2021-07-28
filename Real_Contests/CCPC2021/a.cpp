@@ -13,7 +13,15 @@ int main() {
 	cin.tie(NULL);
 	int t;
 	cin >> t;
-	while(t--){
-		;
+	int ans;
+	if(t==0) ans = 1;
+	else if(t==1) ans = 2;
+	else{
+		ans = 1;
+		while(t){
+			if (t & 1) ans *= 2;
+			t = (t >> 1);
+		}
 	}
+	cout << ans << endl;
 }

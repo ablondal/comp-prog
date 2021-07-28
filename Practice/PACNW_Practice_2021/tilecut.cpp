@@ -24,13 +24,18 @@ struct Dinic {
     queue<int> q;
 
     Dinic(int n, int s, int t) : n(n), s(s), t(t) {
+        edges.clear();
+        adj.clear();
+        level.clear();
+        ptr.clear();
+
         adj.resize(n);
         level.resize(n);
         ptr.resize(n);
     }
 
     void add_edge(int v, int u, long long cap) {
-		printf("%d %d %lld\n", v, u, cap);
+		// printf("%d %d %lld\n", v, u, cap);
         edges.emplace_back(v, u, cap);
         edges.emplace_back(u, v, 0);
         adj[v].push_back(m);
@@ -91,9 +96,8 @@ struct Dinic {
     }
 };
 
-char grid[37][37];
-
-// int adj[]
+short grid[37][37];
+int d[4][2] = {{0,1}, {1,0}, {0,-1}, {-1, 0}};
 
 int main() {
 	ios_base::sync_with_stdio(false);
@@ -107,45 +111,30 @@ int main() {
 			if (sz(l) == 0) break;
 			m = sz(l);
 			rep(i,0,m){
-				grid[n][i] = l[i];
+				grid[n][i] = l[i]=='W' ? 0 : l[i]=='I' ? 1 : 2;
+                // cout << grid[n][i];
 			}
+            // cout << endl;
 			n++;
 		}
-		Dinic din(37*37+7, 37*37, 37*37+1);
+		Dinic din(1807, 1801, 1802);
 		rep(i,0,n){
 			rep(j,0,m){
-				if (grid[i][j] == 'W'){
-					din.add_edge(37*37, i*37 + j, 1);
-					if (i && grid[i-1][j] == 'I') {
-						din.add_edge(i*37+j, (i-1)*37+j, 1);
-					}
-					if (j && grid[i][j-1] == 'I'){
-						din.add_edge(i*37+j, i*37+j-1, 1);
-					}
-				}else if (grid[i][j]=='I'){
-					if (i){
-						if (grid[i-1][j] == 'W'){
-							din.add_edge(i*37+j-37, i*37+j, 1);
-						}else if(grid[i-1][j] == 'N'){
-							din.add_edge(i*37+j,i*37+j-37,  1);
-						}
-					}
-					if (j){
-						if (grid[i][j-1] == 'W'){
-							din.add_edge(i*37+j-1, i*37+j, 1);
-						}else if(grid[i][j-1] == 'N'){
-							din.add_edge(i*37+j,i*37+j-1,  1);
-						}
-					}
-				}else{
-					din.add_edge(i*37+j, 37*37+1, 1);
-					if (i && grid[i-1][j] == 'I') {
-						din.add_edge((i-1)*37+j, i*37+j, 1);
-					}
-					if (j && grid[i][j-1] == 'I'){
-						din.add_edge(i*37+j-1, i*37+j, 1);
-					}
-				}
+                int e = i*m + j;
+				din.add_edge(e, e+900, 1);
+                if (grid[i][j]==0) din.add_edge(1801, e, 1);
+                if (grid[i][j]==2) din.add_edge(e+900, 1802, 1);
+                for(auto [dx, dy] : d){
+                    int nx = i+dx;
+                    int ny = j+dy;
+                    // printf("%d %d\n", nx, ny);
+                    if (nx>=0 && nx<n && ny>=0 && ny<m){
+                        if (grid[i][j] == grid[nx][ny]-1){
+                            din.add_edge(e+900, nx*m + ny, 1);
+                        }
+                    }
+                }
+                // if (i && (grid[i][j]==))
 			}
 		}
 		cout << din.flow() << endl;

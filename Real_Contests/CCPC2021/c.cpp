@@ -8,6 +8,8 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
+long long ch[100][100];
+
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);

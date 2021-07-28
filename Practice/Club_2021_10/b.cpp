@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-// incomplete
+// done
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
@@ -11,9 +11,7 @@ typedef vector<int> vi;
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
-	}
+	int a,b,c,d;
+	cin>>a>>b>>c>>d;
+	printf((a+b+c>=d)?"YES\n":"NO\n");
 }

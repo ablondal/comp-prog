@@ -30,7 +30,7 @@ int DFS(int n, int t, int mincap){
 				cap[e.first][n] += f;
 				return f;
 			}
-		}
+		}f
 	}
 	return 0;
 }

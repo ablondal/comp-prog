@@ -1,9 +1,4 @@
-#include <vector>
-#include <utility>
-#include <algorithm>
-#include <numeric>
-#include <string>
-#include <cstdio>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
@@ -15,7 +10,7 @@ typedef vector<int> vi;
 
 struct SuffixArray {
 	vi sa, lcp;
-	SuffixArray(vector<char>& s, int lim=256) {
+	SuffixArray(vector<int>& s, int lim=256) {
 		int n = sz(s) + 1, k=0, a, b;
 		vi x(all(s)+1), y(n), ws(max(n,lim)), rank(n);
 		sa=lcp=y, iota(all(sa),0);
@@ -43,9 +38,9 @@ struct SuffixArray {
 // 	return -1;
 // }
 
-const int maxN = 1e6+107;
+const int maxN = 1e7+5007;
 
-char set_in[maxN];
+int set_in[maxN];
 
 int main() {
 	// cin.tie(0)->sync_with_stdio(0);
@@ -53,25 +48,38 @@ int main() {
 	vi vs;
 	// string c;
 	// int i=0;
-	vector<char> cc;
+	vector<int> cc;
 	// vector<char> set_in;
 	int si = 0;
 	int curr_set = 0;
 	char ch;
 
-	
+	int n;
+	cin >> n;
 
-	while(scanf("%c",&ch) != EOF){
-		set_in[si++] = (curr_set);
-		if(ch=='\n'){
-			cc.push_back(26+curr_set);
-			curr_set++;
-		}else{
-			cc.push_back(ch - 'a');
+	rep(i,0,n){
+		string str;
+		cin >> str;
+		for(char ch : str){
+			set_in[si++] = (curr_set);
+			cc.push_back(ch-'a'+1);
 		}
-	}
+		set_in[si++] = (curr_set);
+		cc.push_back(27+curr_set);
+		curr_set++;
+	}	
 
-	int sv = (1<<curr_set)-1;
+	// while(scanf("%c",&ch) != EOF){
+	// 	set_in[si++] = (curr_set);
+	// 	if(ch=='\n'){
+	// 		cc.push_back(26+curr_set);
+	// 		curr_set++;
+	// 	}else{
+	// 		cc.push_back(ch - 'a');
+	// 	}
+	// }
+
+	// int sv = (1<<curr_set)-1;
 
 	// for (auto cha : cc) printf("%d", cha);
 	// printf("\n");
@@ -84,9 +92,10 @@ int main() {
 	// int m = 0;
 	// int tm = -1;
 	
-	int subs = 0;
+	bitset<1064> subs;
+	subs.reset();
 
-	SuffixArray arr(cc, 37);
+	SuffixArray arr(cc, 1064);
 
 	// stack<int> curr_lngs;
 
@@ -94,19 +103,32 @@ int main() {
 	bool tm, w;
 	rep(i, 1, sz(arr.lcp)-curr_set){
 		hi = max(hi, arr.lcp[i]+1);
+		// if (hi == arr.lcp[i]+1){
+		// 	cout << arr.lcp[i] << endl;
+		// }
 	}
 
 	while(hi-lo > 1){
 		// printf("%d %d\n", lo, hi);
 		md = (hi+lo)/2;
+		// cout << "testing "<< md << endl;
 		w = false;
 		tm = false;
 		rep(i,1,sz(arr.lcp)-curr_set){
 			if (arr.lcp[i]>=md){
-				if (!tm) subs = (1 << set_in[arr.sa[i-1]]);
-				subs |= (1<< set_in[arr.sa[i]]);
-				if (subs == sv){
-					// printf("%d %d\n", arr.sa[i], subs);
+				// cout << arr.sa[i-1] << " " << arr.sa[i] << endl;
+				if (!tm){
+					subs.reset();
+					// cout << "'here1'" << endl;
+					subs[set_in[arr.sa[i-1]]] = true;
+					// subs = (1 << set_in[arr.sa[i-1]]);
+				}
+				// cout << "here2" << endl;
+				subs[set_in[arr.sa[i]]] = true;
+				// cout << subs.count() << endl;
+				// cout << "here3" << endl;
+				if (subs.count() >= n){
+					// printf("%d\n",i);
 					w = true;
 					break;
 				}
@@ -115,6 +137,7 @@ int main() {
 				tm = false;
 			}
 		}
+		// cout << w << endl;
 		if (w) lo = md;
 		else hi = md;
 	}

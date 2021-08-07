@@ -11,9 +11,23 @@ typedef vector<int> vi;
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
+	string t;
 	cin >> t;
-	while(t--){
-		;
+	vi a(26, 0);
+	int at = -1;
+	bool works = true;
+	rep(i,0,sz(t)){
+		int s = t[i]-'a'-at;
+		// cout << s << endl;
+		if (s <= 1){
+			at = max(at, t[i]-'a');
+		}else{
+			works = false;
+		}
+		// a[t[i]-'a']=1;
 	}
+	
+	if (works) cout << "YES" << endl;
+	else cout << "NO" << endl;
+	// cout << works ? "YES" : "NO" << endl;
 }

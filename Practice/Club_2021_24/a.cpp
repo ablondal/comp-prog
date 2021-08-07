@@ -8,12 +8,19 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
+int m;
+int n;
+void out(int x){
+	if (x<=m) cout << x << " ";
+}
+
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	cin >> n >> m;
+	rep(i,1,2*n+1){
+		out(i+2*n);
+		out(i);
 	}
+	cout << endl;
 }

@@ -11,9 +11,14 @@ typedef vector<int> vi;
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	ll n;
+	cin >> n;
+	ll lo = 0;
+	ll hi = 1e9;
+	while(hi-lo>1){
+		ll md = (hi+lo)>>1;
+		if ((md)*(md+1)/2 < n) lo = md;
+		else hi = md;
 	}
+	cout << n - (lo*(lo+1)/2) << endl;
 }

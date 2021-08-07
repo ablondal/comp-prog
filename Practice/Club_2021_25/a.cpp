@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-// incomplete
+// done
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
@@ -14,6 +14,14 @@ int main() {
 	int t;
 	cin >> t;
 	while(t--){
-		;
+		ll a, b;
+		cin >> a >> b;
+		if (a == b){
+			cout << "0 0" << endl;
+			continue;
+		}
+		ll c = abs(a-b);
+		ll d = a % c;
+		cout << c << " " << min(d, c-d) << endl;
 	}
 }

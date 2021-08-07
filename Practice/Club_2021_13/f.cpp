@@ -7,13 +7,16 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+const double pi = 3.141592653589793;
+const int MAXN = 2e5+7;
+
+int l[MAXN], a[MAXN], r[MAXN];
+
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
-	}
+	int n;
+	scanf("%d", &n);
+	vector<pair<int, int>> ivals(n);	
 }

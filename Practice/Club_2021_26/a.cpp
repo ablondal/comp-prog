@@ -14,6 +14,20 @@ int main() {
 	int t;
 	cin >> t;
 	while(t--){
-		;
+		int n;
+		cin >> n;
+		int tot = 0;
+		rep(i,0,n){
+			int tmp;
+			cin >> tmp;
+			tot += tmp;
+		}
+		if (tot == n) {
+			cout << 0 << endl;
+		} else if (tot < n) {
+			cout << 1 << endl;
+		} else {
+			cout << tot - n << endl;
+		}
 	}
 }

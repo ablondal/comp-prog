@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-// incomplete
+// done
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
@@ -14,6 +14,13 @@ int main() {
 	int t;
 	cin >> t;
 	while(t--){
-		;
+		int n, p;
+		string s;
+		cin >> n >> s >> p;
+		if (s[0]=='o'){
+			printf("%d\n", p*2);
+		}else{
+			printf("%d\n", p*2-1);
+		}
 	}
 }

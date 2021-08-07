@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-// incomplete
+// done
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
@@ -13,7 +13,10 @@ int main() {
 	cin.tie(NULL);
 	int t;
 	cin >> t;
-	while(t--){
-		;
+	int i = 3;
+	while(i<=t){
+		t -= i;
+		i++;
 	}
+	cout << i-3 << endl;
 }

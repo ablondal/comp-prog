@@ -41,11 +41,11 @@ struct Point {
 };
 
 typedef Point<double> P;
-// double segDist(P& s, P& e, P& p) {
-// 	if (s==e) return (p-s).dist();
-// 	auto d = (e-s).dist2(), t = min(d,max(.0L,(p-s).dot(e-s)));
-// 	return ((p-s)*d-(e-s)*t).dist()/d;
-// }
+double segDist(P& s, P& e, P& p) {
+	if (s==e) return (p-s).dist();
+	auto d = (e-s).dist2(), t = min(d,max(.0,(p-s).dot(e-s)));
+	return ((p-s)*d-(e-s)*t).dist()/d;
+}
 
 // double lineDist(const P& a, const P& b, const P& p) {
 // 	return (double)(b-a).cross(p-a)/(b-a).dist();
@@ -53,6 +53,14 @@ typedef Point<double> P;
 
 int DP[2007];
 P pts[2007];
+
+// int ccw(double ang1, double ang2){
+// 	double b = ang2-ang1;
+// 	while(b > PI) b -= 2*PI;
+// 	while(b < -PI) b += 2*PI;
+// 	if (b >= 0) return true;
+// 	else return false;
+// }
 
 int main() {
 	ios_base::sync_with_stdio(false);
@@ -106,6 +114,12 @@ int main() {
 				angdef = true;
 			} else {
 				// update minang and maxang
+				// if (ccw(minang, ang1-angsiz)){
+				// 	minang = ang1-angsiz;
+				// }
+				// if (ccw(ang1+angsiz, maxang)){
+				// 	maxang = ang1+angsiz;
+				// }
 				minang = max(minang, ang1-angsiz);
 				maxang = min(maxang, ang1+angsiz);
 				// update farthest. If a is farther away than everything else,
@@ -115,8 +129,8 @@ int main() {
 					farthest = a;
 				}
 			}
-
-			if (minang <= ang1 && ang1 <= maxang && (farthest-a).dist2() <= d2){
+			P ad;
+			if (minang <= ang1 && ang1 <= maxang && segDist(ad, a, farthest) <= d){
 				DP[j] = min(DP[j], DP[i]+1);
 			}
 			if (minang > maxang) break;

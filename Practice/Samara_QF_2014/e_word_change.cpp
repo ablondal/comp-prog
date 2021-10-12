@@ -7,14 +7,20 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vll;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	string s;
+	cin >> s;
+	vi cts(26, 0);
+	rep(i,0,sz(s)){
+		cts[s[i]-'a']++;
+	}
+	sort(all(cts));
+	if (sz(s) % 2 == 1 || cts[25] > sz(s)/2) {
+		cout << "NO" << endl;
+	} else {
+		cout << "YES" << endl;
 	}
 }

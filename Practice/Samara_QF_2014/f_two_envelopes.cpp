@@ -7,14 +7,25 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vll;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	int a, b, c;
+	cin >> a >> b >> c;
+	bool stay;
+	if (b < c) {
+		stay = true;
+	} else if (c % 2 == 1) {
+		stay = false;
+	} else if ( (c/2) < a ) {
+		stay = false;
+	} else {
+		stay = false;
+	}
+	if (stay) {
+		cout << "Stay with this envelope" << endl;
+	} else {
+		cout << "Take another envelope" << endl;
 	}
 }

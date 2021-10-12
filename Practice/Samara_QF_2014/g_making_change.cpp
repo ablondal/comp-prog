@@ -7,14 +7,22 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vll;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	ll n, s;
+	cin >> n >> s;
+	vector<ll> a(n+1, 1);
+	rep(i, 1, n+1) {
+		cin >> a[i];
+		a[i] = a[i-1] * a[i];
+		if (a[i] > 1e9+7) a[i] = 1e9+7;
 	}
+	ll tot = 0;
+	for(int i=n; i>=0; --i){
+		tot += (s / a[i]);
+		s %= a[i];
+	}
+	cout << tot << endl;
 }

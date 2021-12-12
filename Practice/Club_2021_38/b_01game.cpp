@@ -8,7 +8,6 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vll;
-typedef complex<double> cd;
 
 int main() {
 	ios_base::sync_with_stdio(false);
@@ -16,6 +15,15 @@ int main() {
 	int t;
 	cin >> t;
 	while(t--){
-		;
+		string s;
+		cin >> s;
+		int n1 = 0;
+		int n0 = 0;
+		for(auto c : s) {
+			if (c=='0') n0++;
+			else n1++;
+		}
+		int moves = min(n0, n1);
+		cout << (moves % 2 == 0 ? "NET" : "DA") << endl;
 	}
 }

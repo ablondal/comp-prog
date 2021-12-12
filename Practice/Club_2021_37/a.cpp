@@ -8,14 +8,25 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vll;
-typedef complex<double> cd;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	int n;
+	cin >> n;
+	while(n--){
+		int t;
+		cin >> t;
+		vi b(t);
+		map<int, int> M;
+		rep(i,0,t){
+			cin >> b[i];
+			M[b[i]]++;
+		}
+		for(int i=0; i<sz(b); ++i){
+			if (M[b[i]]==1){
+				cout << i+1 << endl;
+			}
+		}
 	}
 }

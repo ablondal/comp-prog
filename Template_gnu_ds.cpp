@@ -10,6 +10,7 @@ using namespace __gnu_pbds;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+typedef complex<double> cd;
 
 struct custom_hash {
 	// From https://codeforces.com/blog/entry/62393

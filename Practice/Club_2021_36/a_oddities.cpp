@@ -8,7 +8,6 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vll;
-typedef complex<double> cd;
 
 int main() {
 	ios_base::sync_with_stdio(false);
@@ -16,6 +15,12 @@ int main() {
 	int t;
 	cin >> t;
 	while(t--){
-		;
+		int n;
+		cin >> n;
+		if ( ((n%2)+2)%2 == 1){
+			cout << n << " is odd" << endl;
+		} else {
+			cout << n << " is even" << endl;
+		}
 	}
 }

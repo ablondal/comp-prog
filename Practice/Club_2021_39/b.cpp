@@ -8,14 +8,23 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vll;
-typedef complex<double> cd;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	int n;
+	cin >> n;
+	vector<int> t(43207, 0);
+	rep(i,0,n){
+		int di, ti;
+		cin >> di >> ti;
+		t[ti]++;
+		t[ti-di]++;
+		t[ti-di-di]++;
 	}
+	int M = 0;
+	rep(i,0,43207){
+		M = max(M, t[i]);
+	}
+	cout << (M+1) /2 << endl;
 }

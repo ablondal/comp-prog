@@ -8,14 +8,18 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vll;
-typedef complex<double> cd;
+
+int DP[100007][3] = {{0}};
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	int n;
+	double h;
+	cin >> n >> h;
+	double nn = n;
+	for(int i=1; i<n; ++i){
+		cout << setprecision(12) << h * ( sqrt(i/nn) ) << " ";
 	}
+	cout << endl;
 }

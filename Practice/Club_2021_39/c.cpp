@@ -8,14 +8,14 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vll;
-typedef complex<double> cd;
+const ll M = 1e9+87;
+
+map<ll, ll> invfac;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
-	}
+	int n;
+	cin >> n;
+	
 }

@@ -1,11 +1,4 @@
-#include <vector>
-#include <utility>
-#include <algorithm>
-#include <numeric>
-#include <string>
-#include <cstdio>
-#include <iostream>
-#include <string>
+#include <bits/stdc++.h>
 using namespace std;
 // incomplete
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
@@ -14,10 +7,14 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+typedef vector<ll> vll;
+typedef complex<double> cd;
 
 int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
 	int t;
-	scanf("%d", &t);
+	cin >> t;
 	while(t--){
 		;
 	}

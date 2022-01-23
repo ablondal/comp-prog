@@ -8,7 +8,17 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vll;
-typedef complex<double> cd;
+
+unordered_set<ll> S;
+ll M = 9999999999999937;
+
+// a b c a b a c b a 
+
+string backtrack(int l, string& s, ){
+
+	if (l == 1e5) return s;
+}
+
 
 int main() {
 	ios_base::sync_with_stdio(false);

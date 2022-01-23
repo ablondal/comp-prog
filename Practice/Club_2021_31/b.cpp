@@ -7,15 +7,21 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vll;
-typedef complex<double> cd;
+
+int DP[30007] = {0};
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	int n, t;
+
+	cin >> n >> t;
+	DP[0] = 1;
+	rep(i,0,n-1){
+		// cout << i << " " << DP[i] << endl;
+		int a;
+		cin >> a;
+		if (DP[i]) DP[i+a] = 1;
 	}
+	cout << (DP[t-1] ? "YES" : "NO") << endl;
 }

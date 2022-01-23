@@ -7,15 +7,32 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vll;
-typedef complex<double> cd;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	int n;
+	cin >> n;
+	while(n--){
+
+		ll t;
+		cin >> t;
+		int ct = 0;
+		while(t%5 == 0){
+			ct += 3;
+			t /= 5;
+		}
+		while(t%3 == 0){
+			ct += 2;
+			t /= 3;
+		}
+		while(t%2 == 0){
+			ct += 1;
+			t /= 2;
+		}
+		if (t == 1)
+			cout << ct << endl;
+		else
+			cout << -1 << endl;
 	}
 }

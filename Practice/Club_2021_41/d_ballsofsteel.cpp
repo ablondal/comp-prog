@@ -16,6 +16,26 @@ int main() {
 	int t;
 	cin >> t;
 	while(t--){
-		;
+		int n, k;
+		cin >> n >> k;
+		vector<cd> bs(n);
+		rep(i,0,n){
+			double x,y;
+			cin >> x >> y;
+			bs[i] = {x,y};
+		}
+		bool W = false;
+		rep(i,0,n){
+			bool y = true;
+			rep(j,0,n){
+				cd a = bs[i]-bs[j];
+				if (abs(a.real()) + abs(a.imag()) > k){
+					y = false;
+					break;
+				}
+			}
+			if (y) W = true;
+		}
+		cout << (W ? "1" : "-1") << endl;
 	}
 }

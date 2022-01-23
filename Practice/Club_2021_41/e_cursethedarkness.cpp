@@ -16,6 +16,20 @@ int main() {
 	int t;
 	cin >> t;
 	while(t--){
-		;
+		double x, y;
+		cin >> x >> y;
+		cd pt1 = {x, y};
+		int n;
+		cin >> n;
+		bool Y = false;
+		rep(i,0,n){
+			cin >> x >> y;
+			cd pt2 = {x, y};
+			if ( norm(pt1-pt2) <= 64.0 ) {
+				Y = true;
+			}
+		}
+		cout << (Y ? "light a candle" : "curse the darkness") << endl;
+
 	}
 }

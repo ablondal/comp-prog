@@ -7,8 +7,9 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vll;
-typedef complex<double> cd;
+const int MAXN = 1e5+7;
+
+ll DP[MAXN];
 
 int main() {
 	ios_base::sync_with_stdio(false);
@@ -16,6 +17,16 @@ int main() {
 	int t;
 	cin >> t;
 	while(t--){
-		;
+		string a, b;
+		cin >> a >> b;
+		int M = 0;
+		for (int i=0; i<sz(a); ++i){
+			for (int j=i+1; j<=sz(a); ++j){
+				if (b.find(a.substr(i, j-i)) != string::npos) {
+					M = max(M, j-i);
+				}
+			}
+		}
+		cout << sz(a)+sz(b)-M-M << endl;
 	}
 }

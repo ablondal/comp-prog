@@ -7,8 +7,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vll;
-typedef complex<double> cd;
 
 int main() {
 	ios_base::sync_with_stdio(false);
@@ -16,6 +14,11 @@ int main() {
 	int t;
 	cin >> t;
 	while(t--){
-		;
+		ll n, m, x;
+		cin >> n >> m >> x;
+		x--;
+		ll xx = x / n;
+		ll yy = (x) % n;
+		cout << yy*m + xx + 1 << endl;
 	}
 }

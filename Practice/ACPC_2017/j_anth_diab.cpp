@@ -7,13 +7,23 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+typedef vector<ll> vll;
+
+const double PI = acos(-1);
+
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	double A, N;
+	cin >> A >> N;
+
+	double r = N / (2*PI);
+	double a = PI * r * r;
+	if (a >= A){
+		cout << "Diablo is happy!" << endl;
+	} else {
+		cout << "Need more materials!" << endl;
 	}
+
 }

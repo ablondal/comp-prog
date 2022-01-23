@@ -7,13 +7,22 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+typedef vector<ll> vll;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	set<string> S;
+	string a, b;
+	int n;
+	cin >> n;
+	bool w = true;
+	rep(i,0,n){
+		cin >> a;
+		if (!b.empty() && b.back() != a[0]) w = false;
+		if (S.count(a)) w = false;
+		S.insert(a);
+		b = a;
 	}
+	cout << (w ? "Yes" : "No") << endl;
 }

@@ -7,13 +7,20 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+typedef vector<ll> vll;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	ll n, x;
+	ll g, tmp;
+	cin >> n >> x;
+	rep(i,0,n){
+		cin >> tmp;
+		if (i == 0) g = abs(tmp-x);
+		else {
+			g = gcd(g, abs(tmp-x));
+		} 
 	}
+	cout << g << endl;
 }

@@ -14,8 +14,6 @@ ll* nn = new ll[64]();
 
 typedef char T;
 struct SplayTree{
-
-
 	struct node;
 	typedef node* nd;
 	nd head = nil;
@@ -37,35 +35,22 @@ struct SplayTree{
 	SplayTree(nd head, int siz): head(head), siz(siz) {}
 
 	struct node{
-		node *L, *R, *P;
+		node *L, *R;
 		bool rev;
 		int siz;
 		T val;
-		node(T a): L(nil), R(nil), P(nil), rev(0), siz(1), val(a) {}
+		node(T a): L(nil), R(nil), rev(0), siz(1), val(a) {}
 
-		node* nth(int n){
-			cout << n << this->val << endl;
-			push();
-			cout << siz << endl;
-			int l = L->siz;
-			int r = R->siz;
-			if (n<=l) return L->nth(n);
-			if (n==l+1) return this;
-			if (n<=l+r+1) return R->nth(n-l-1);
-			return nil;
-		}
-		void push(){
+		void push(int dir=0){
+			if (this == nil) break;
+			if (dir) (dir==1 ? R : L)->push(dir);
 			siz = L->siz+R->siz+1;
-			// cout << siz << endl;
 			if (rev) {
 				swap(L, R);
 				rev = 0;
 				R->rev^=1;
 				L->rev^=1;
 			}
-			// cout << L->P << " " << R->P << endl;
-			L->P = R->P = this;
-			// cout << "hi2" << endl;
 		}
 	};
 
@@ -86,76 +71,105 @@ struct SplayTree{
 	}
 
 	nd leftrot( nd x ){ // call on parent
-		auto y = x->R; x->R = y->L;
-		y->L = x; y->P = x->P;
+		nd y = x->R; x->R = y->L; y->L = x;
 		x->push(); y->push();
+		return y;
 	}
 	nd rightrot( nd x ){
-		auto y = x->L; x->L = y->R;
-		y->R = x; y->P = x->P;
+		nd y = x->L; x->L = y->R; y->R = x;
 		x->push(); y->push();
-	}
-
-	void splay( nd x, int n ){
-		cout << "splaying" << endl;
-		while(x->P != nil){
-			if (x->P->P == nil) {
-				if (x->P->L == x) rightrot(x->P);
-				else leftrot(x->P);
-			}
-			if (x->P->L == x) {
-				if (x->P->P->L == x->P) {
-					rightrot(x->P->P);
-					rightrot(x->P);
-				} else {
-					rightrot(x->P);
-					leftrot(x->P);
-				}
-			} else {
-				if (x->P->P->L == x->P) {
-					leftrot(x->P);
-					rightrot(x->P);
-				} else {
-					leftrot(x->P->P);
-					leftrot(x->P);
-				}
-			}
-			DFS_print();
-		}
-		head = x;
-	}
-
-	node* nth(int n){
-		auto y = head->nth(n+1); // Buffer node
-		if (y!=nil) splay(y);
 		return y;
 	}
 
-	node* insert(int pos, T x){ // Supports pos in [1, cur_size+1]
-		auto n = nth(pos-1);
-		nd y = new node(x);
-		y->L = head;
-		if (n != nil) {
-			y->R = head->R;
-			head->R = nil;
-			head->push();
+	void splay( nd& t, int n ){
+		if (t==nil) return;
+		node head, *L = &head, *R = &head;
+		while(true){
+			if (t->L->siz == n) break; // Done
+			else if (t->L->siz > n) {
+				if (t->L != nil && t->L->L->siz > n) {
+					t = rightrot( t );
+				}
+				if (t->L == nil) break;
+				R->L=t; R=t; t=t->L;
+			} else {
+				if (t->R != nil && t->R->L->siz < n) {
+					t = leftrot( t );
+				}
+				if (t->R == nil) break;
+				L->R=t; L=t; t=t->R;
+			}
 		}
-		y->push();
-		return head = y;
+		L->R = t->L; R->L = t->R;
+		t->L = head.R; t->R = head.L;
+
+		t->L->push(1);
+		t->R->push(-1);
+		t->push();
 	}
 
-	void reverse(int l, int r){
-		auto ln = nth(l-1);
-		if (r < siz) {
-			SplayTree sp2 (head->R, head->R->siz);
-			ln->R->P = nil;
-			auto rn = sp2.nth(r-l+2);
-			rn->L->rev ^= 1;
-			rn->P = ln;
-		} else {
-			ln->R->rev ^= 1;
-		}
+	// void splay( nd x, int n ){
+	// 	cout << "splaying" << endl;
+	// 	while(x->P != nil){
+	// 		if (x->P->P == nil) {
+	// 			if (x->P->L == x) rightrot(x->P);
+	// 			else leftrot(x->P);
+	// 		}
+	// 		if (x->P->L == x) {
+	// 			if (x->P->P->L == x->P) {
+	// 				rightrot(x->P->P);
+	// 				rightrot(x->P);
+	// 			} else {
+	// 				rightrot(x->P);
+	// 				leftrot(x->P);
+	// 			}
+	// 		} else {
+	// 			if (x->P->P->L == x->P) {
+	// 				leftrot(x->P);
+	// 				rightrot(x->P);
+	// 			} else {
+	// 				leftrot(x->P->P);
+	// 				leftrot(x->P);
+	// 			}
+	// 		}
+	// 		DFS_print();
+	// 	}
+	// 	head = x;
+	// }
+
+	node* nth(int n){ // 0 to siz-1
+		splay(head, n);
+		return (head->L->siz == n) ? head : nil;
 	}
+
+	// node* insert(int pos, T x){ // Supports pos in [1, cur_size+1]
+	// 	auto n = nth(pos-1);
+	// 	nd y = new node(x);
+	// 	y->L = head;
+	// 	if (n != nil) {
+	// 		y->R = head->R;
+	// 		head->R = nil;
+	// 		head->push();
+	// 	}
+	// 	y->push();
+	// 	return head = y;
+	// }
+
+	// void reverse(int l, int r){
+	// 	g
+
+	// 	auto ln = nth(l-1);
+		
+	// 	if (r < siz) {
+	// 		SplayTree sp2 (head->R, head->R->siz);
+	// 		ln->R->P = nil;
+	// 		auto rn = sp2.nth(r-l+2);
+	// 		rn->L->rev ^= 1;
+	// 		rn->P = ln;
+	// 	} else {
+	// 		ln->R->rev ^= 1;
+	// 	}
+	// }
 };
 
 int main() {

@@ -11,9 +11,12 @@ typedef vector<int> vi;
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	string s;
+	cin >> s;
+	int it = s.find(')');
+	if (sz(s) % 2 == 1 || it*2 != sz(s)) {
+		cout << "fix" << endl;
+	} else {
+		cout << "correct" << endl;
 	}
 }

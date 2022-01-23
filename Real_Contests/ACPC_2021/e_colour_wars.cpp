@@ -7,13 +7,26 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+typedef vector<ll> vll;
+
+int ask[10007] = {0};
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int t;
-	cin >> t;
-	while(t--){
-		;
+	int n;
+	cin >> n;
+	rep(i,0,n){
+		int a;
+		cin >> a;
+		ask[a]++;
 	}
+	ll tot = 0;
+	rep(i,1,10007){
+		while(ask[i]>0){
+			tot += i+1;
+			ask[i] -= i+1;
+		}
+	}
+	cout << tot << endl;
 }

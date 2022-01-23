@@ -1,0 +1,3 @@
+from random import randrange
+
+print(''.join(chr(randrange(ord('a'), ord('z')+1)) for _ in range(100000)))

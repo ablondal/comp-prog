@@ -7,6 +7,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+typedef vector<ll> vll;
 
 int main() {
 	ios_base::sync_with_stdio(false);

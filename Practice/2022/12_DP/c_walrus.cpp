@@ -8,12 +8,26 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vll;
+typedef complex<double> cd;
+
+bitset<3000> DP;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	string s;
-	cin >> s;
-	auto it = s.find('a');
-	cout << s.substr(it, sz(s)) << endl;
+	int n;
+	cin >> n;
+	vi a(n);
+	rep(i,0,n) cin >> a[i];
+	pii mx = {1000, 0};
+	DP[0] = true;
+	rep(i,0,n){
+		DP |= (DP << a[i]);
+	}
+	rep(i,0,3000){
+		if (DP[i]) {
+			mx = min(mx, {abs(1000-i), -i});
+		}
+	}
+	cout << -mx.second << endl;
 }

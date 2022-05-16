@@ -100,6 +100,4 @@ int main() {
 		}
 	}
 	cout << (good ? "Go" : "Surrender") << endl;
-
-
 }

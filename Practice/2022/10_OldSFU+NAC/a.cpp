@@ -8,23 +8,16 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vll;
+typedef complex<double> cd;
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
+	int n;
+	cin >> n;
 	string s;
-	cin >> s;
-	long double aa = 0;
-	// reverse(all(s));
-	rep(i,0,sz(s)){
-		aa *= 10;
-		aa += s[i];
+	while(cin >> s){
+		reverse(all(s));
+		cout << s << (cin.peek()=='\n' || cin.peek()==EOF ? "\n" : " ");
 	}
-	int i=0;
-	long double facc = 1;
-	while(abs(facc - aa) > (aa*0.9)) {
-		i++;
-		facc *= i;
-	}
-	cout << i << endl;
 }

@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+//https://acm.timus.ru/problem.aspx?space=1&num=1269
+using namespace std;
+// incomplete
+#define rep(i, a, b) for(int i = a; i < (b); ++i)
+#define all(x) begin(x), end(x)
+#define sz(x) (int)(x).size()
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+typedef vector<ll> vll;
+typedef complex<double> cd;
+
+struct SuffixAutomaton {
+	static const int N = 2e5+7;
+	string s;
+	int link[N], len[N], ct[N]={0}, t[N]={0}, la=0, ni=1;
+	map<char,int> nx[N];
+	void add_c(char x){
+		int a=la, c=ni++;
+		len[c]=len[a]+1; ct[c]=1; la=c;
+		while(a!=-1 && !nx[a].count(x)){
+      		nx[a][x] = c; a = link[a];
+		}
+		if (a == -1) {
+			link[c] = 0;
+		} else {
+			int q = nx[a][x];
+			if (len[a]+1==len[q]) {
+				link[c]=q;
+			} else {
+				int cl = ni++;
+				link[cl]=link[q]; nx[cl]=nx[q];
+				len[cl]=len[a]+1;
+				while(a != -1 && nx[a][x] == q) {
+        			nx[a][x] = cl; a = link[a];
+				}
+      			link[q]=link[c]=cl;
+			}
+		}
+	}
+	SuffixAutomaton(string s):s(s){
+		link[0] = -1; len[0] = 0;
+		for(auto x:s) add_c(x);
+		t[la] = true;
+		vi a(ni, 0); iota(all(a),0);
+		sort(all(a), [this](int b, int c){return len[b]<len[c];});
+		for(int i=ni-1; i>0; --i){
+			t[link[a[i]]] = t[a[i]];
+      		ct[link[a[i]]] += ct[a[i]];
+      	}
+      	ct[0] = 0;
+	}
+};
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int t;
+	cin >> t;
+	while(t--){
+		;
+	}
+}
